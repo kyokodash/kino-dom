@@ -1,10 +1,11 @@
 import js from '@eslint/js';
-import globals from 'globals';
+import { defineConfig, globalIgnores } from 'eslint/config';
 import importFsdPlugin from 'eslint-plugin-import-fsd';
 import reactHooks from 'eslint-plugin-react-hooks';
 import reactRefresh from 'eslint-plugin-react-refresh';
+import simpleImportSort from 'eslint-plugin-simple-import-sort';
+import globals from 'globals';
 import tseslint from 'typescript-eslint';
-import { defineConfig, globalIgnores } from 'eslint/config';
 
 export default defineConfig([
     globalIgnores(['dist']),
@@ -22,7 +23,9 @@ export default defineConfig([
         },
     },
     {
-        files: ['src/{app,processes,pages,widgets,features,entities,shared}/**/*.{ts,tsx}'],
+        files: [
+            'src/{app,processes,pages,widgets,features,entities,shared}/**/*.{ts,tsx}',
+        ],
         extends: [importFsdPlugin.configs.recommended],
         settings: {
             fsd: {
@@ -31,6 +34,43 @@ export default defineConfig([
                     '@/*': './src/*',
                 },
             },
+        },
+    },
+    {
+        files: ['**/*.{ts,tsx,js,jsx}'],
+
+        plugins: {
+            'simple-import-sort': simpleImportSort,
+        },
+
+        rules: {
+            'simple-import-sort/imports': [
+                'error',
+
+                {
+                    groups: [
+                        ['^react', '^@?\\w'],
+
+                        ['^@/app'],
+
+                        ['^@/processes'],
+
+                        ['^@/pages'],
+
+                        ['^@/widgets'],
+
+                        ['^@/features'],
+
+                        ['^@/entities'],
+
+                        ['^@/shared'],
+
+                        ['^\\.'],
+                    ],
+                },
+            ],
+
+            'simple-import-sort/exports': 'error',
         },
     },
 ]);

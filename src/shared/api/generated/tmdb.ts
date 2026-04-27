@@ -4,10 +4,6 @@
  * tmdb-api
  * OpenAPI spec version: 3
  */
-import {
-  useMutation,
-  useQuery
-} from '@tanstack/react-query';
 import type {
   DataTag,
   DefinedInitialDataOptions,
@@ -22,7 +18,12 @@ import type {
   UseQueryOptions,
   UseQueryResult
 } from '@tanstack/react-query';
+import {
+  useMutation,
+  useQuery
+} from '@tanstack/react-query';
 
+import { tmdbFetch } from '../client';
 import type {
   AccountAddFavorite200,
   AccountAddFavoriteBody,
@@ -286,15 +287,12 @@ import type {
   TvSeriesVideos200,
   TvSeriesVideosParams,
   TvSeriesWatchProviders200,
-  WatchProviderTvList200,
-  WatchProviderTvListParams,
   WatchProvidersAvailableRegions200,
   WatchProvidersAvailableRegionsParams,
   WatchProvidersMovieList200,
-  WatchProvidersMovieListParams
-} from './model';
-
-import { tmdbFetch } from '../client';
+  WatchProvidersMovieListParams,
+  WatchProviderTvList200,
+  WatchProviderTvListParams} from './model';
 type SecondParameter<T extends (...args: never) => unknown> = Parameters<T>[1];
 
 

@@ -1,4 +1,5 @@
 import { useMoviePopularList } from '@shared/api/generated/tmdb';
+
 import { MoviesResponseSchema } from './schema';
 
 export const useMovies = () => {
